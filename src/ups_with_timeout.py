@@ -22,11 +22,6 @@ except:
         "Error importing GPIO library, UPS will work without interrupt")
 
 
-# Timeout
-TIMEOUT = 100  # timeout to shutdown in seconds
-counter = 0
-
-
 # Power pi
 
 #### Pass in options to this section to suit your battery and input specs ####
@@ -69,6 +64,11 @@ ppi = Powerpi({
     # Determines the battery voltage at which the UPS will shutoff.
     'VBAT_LOW': helpers.env_var('VBAT_LOW') or 3.200,  # 3.200v
 })
+
+
+# Timeout
+TIMEOUT = 100  # timeout to shutdown in seconds
+counter = 0
 
 
 def read_status(clear_fault=False):

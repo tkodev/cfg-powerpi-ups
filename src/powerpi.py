@@ -65,7 +65,7 @@ class Powerpi:
         self.BAT_CAPACITY = helpers.clamp(options["BAT_CAPACITY"], 2000, 4000)
         self.CURRENT_DRAW = helpers.clamp(options["CURRENT_DRAW"], 1500, 2500)
         self.VBAT_MAX = helpers.clamp(options["VBAT_MAX"], 3.84, 4.608)
-        self.VBAT_LOW = helpers.clamp(options["VBAT_LOW"], 3.00, self.VBAT_MAX)
+        self.VBAT_LOW = helpers.clamp(options["VBAT_LOW"], 3.20, self.VBAT_MAX)
 
     def initialize(self):
         try:

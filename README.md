@@ -89,7 +89,7 @@ git clone https://github.com/tjohn327/raspberry_pi_ups.git
 cd raspberry_pi_ups/src/
 ```
 
-Edit the file powerpi.py between lines 16 and 24 if you are not using Samsung INR18650-29E battery. It is recommended to keep the VBAT_LOW at 3.2V for Li-Ion batteries.
+Edit the file ups.py or ups_with_timeout between lines 45 and 66 if you are not using Samsung INR18650-29E battery. It is recommended to keep the VBAT_LOW at 3.2V for Li-Ion batteries.
 
 *Power PI uses GPIO4 for interrupts from the Power Management IC. 1-Wire interface uses the same pin. If you are not using 1-Wire interface, disable it before proceeding. Power Pi can still function fully without the interrupt. So if you want to use 1-Wire interface it is advised to remove the resistor R12 from Power Pi, otherwise it will cause interference with 1-Wire interface.*
 
@@ -150,57 +150,6 @@ Jun 09 06:44:17 raspberrypi python[542]: INFO:root:UPS initialized
 
 Your Power Pi is now ready.
 
-The ups service will now run on startup and send the status of the UPS to UDP Port 40001 every 2 seconds. You can see the status of the UPS by listening to that port.
-
-To test if the UPS status is being read correctly, run the following command:
-
-```shell
-nc -lvu  40001
-```
-
-### 4. Setup Node-Red dashboard for visualization (optional)
-
-![Dashboard](Assests/dashboard_R3.PNG "UPS Monitoring Dashboard")
-
-If you are new to Node-Red, please checkout their Essentials [video](https://www.youtube.com/watch?v=ksGeUD26Mw0&list=PLyNBB9VCLmo1hyO-4fIZ08gqFcXBkHy-6) series.
-
-Follow the instructions given in the [link](https://nodered.org/docs/getting-started/raspberrypi) and install Node-Red on the Raspberry Pi.
-
-It may take a while to install. After the installation is done, copy the ups_flow.json file to Node-Red's directory.
-
-```shell
-cp ups_flow.json ~/.node-red/lib/flows/ups_flow.json
-```
-
-Install the Dashboard extension for Node-Red.
-
-```shell
-cd ~/.node-red/
-npm i node-red-dashboard
-```
-
-Enable Node-Red to run on startup and start the Node-Red service:
-
-```shell
-sudo systemctl enable nodered.service
-sudo systemctl start nodered.service
-```
-
-Open the Node-Red link in a browser. The link is usually:
-
-http://[IP of Raspberry Pi]:1880/
-
-Import the ups flow into the Node-Red environment.
-
-![Import](Assests/nodered_import.png "Importing ups flow")
-
-Edit one of the UI nodes (e.g BAT) by double clicking on it. In its setup menu click on the edit button next to "Group' and select 'Home' in the Tab drop down. Click Update and then Done.
-
-Deploy the flow by clicking the Deploy button and open the dashboard link of Node-Red to see the status of the UPS.
-
-http://[IP of Raspberry Pi]:1880/ui
-
-More [info](https://nodered.org/docs/user-guide/editor/workspace/import-export) about importing flows and setting up [dashboards](https://flows.nodered.org/node/node-red-dashboard).
 
 ## Using Power Pi with Raspberry Pi
 
